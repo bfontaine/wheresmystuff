@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-var ErrUnknownTransporter = errors.New("Unknown transporter for this package")
+var ErrUnknownCarrier = errors.New("Unknown transporter for this package")
 
 type PackageID string
 

@@ -12,7 +12,7 @@ func init() {
 
 	const targetURL = "http://www.chronopost.fr/transport-express/livraison-colis/accueil/suivi?appid=9680_718&appparams=http%3A%2F%2Fwww.chronopost.fr%3A54711%2Fwebclipping%2Fservlet%2Fwebclip%3Fjahia_url_web_clipping%3Dhttp%3A%2F%2Flocalhost%3A54702%2Fexpedier%2FinputLTNumbers.do"
 
-	RegisterTransporter(GenericTransporter{
+	RegisterCarrier(GenericCarrier{
 		name: "Chronopost",
 		matchPackage: func(p PackageID) bool {
 			return true
