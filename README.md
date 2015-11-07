@@ -9,6 +9,10 @@ I ordered at Amazon the day before.
 Right now the most important thing is to know where my stuff is so don’t expect
 fancy documented code.
 
+## Supported Carriers
+
+* Chronopost France
+
 ## Install
 
     go get github.com/bfontaine/wheresmystuff
