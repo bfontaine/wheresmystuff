@@ -3,22 +3,25 @@ package wms
 import (
 	"net/http"
 	"net/url"
+	"regexp"
 	"strings"
 
 	"github.com/bfontaine/gostruct"
 )
 
 func init() {
-
 	const targetURL = "http://www.chronopost.fr/transport-express/livraison-colis/accueil/suivi?appid=9680_718&appparams=http%3A%2F%2Fwww.chronopost.fr%3A54711%2Fwebclipping%2Fservlet%2Fwebclip%3Fjahia_url_web_clipping%3Dhttp%3A%2F%2Flocalhost%3A54702%2Fexpedier%2FinputLTNumbers.do"
+
+	// http://www.chronopost.fr/transport-express/webdav/site/chronov4/users/chronopost/public/pdf/track.pdf
+	var pattern = regexp.MustCompile(`^(?:[a-z]{2}\d{9}[a-z]{2}|\d{15}|\d{14}[a-z])$`)
 
 	RegisterCarrier(GenericCarrier{
 		name: "Chronopost",
 		matchPackage: func(p PackageID) bool {
-			return true
+			return pattern.MatchString(p.String())
 		},
 		getPackageInfo: func(p PackageID) (*PackageInfo, error) {
-			resp, err := http.PostForm(targetURL, url.Values{"chronoNumbers": {string(p)}})
+			resp, err := http.PostForm(targetURL, url.Values{"chronoNumbers": {p.String()}})
 			if err != nil {
 				return nil, err
 			}
