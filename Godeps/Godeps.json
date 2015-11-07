@@ -1,0 +1,26 @@
+{
+	"ImportPath": "github.com/bfontaine/wheresmystuff",
+	"GoVersion": "go1.5.1",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/PuerkitoBio/goquery",
+			"Comment": "v0.3.2-72-g269246d",
+			"Rev": "269246d9e7d42d74e1cf929336d128d2ef53e7a5"
+		},
+		{
+			"ImportPath": "github.com/andybalholm/cascadia",
+			"Rev": "54abbbf07a45a3ef346ebe903e0715d9a3c19352"
+		},
+		{
+			"ImportPath": "github.com/bfontaine/gostruct",
+			"Rev": "912581e7171c58508b0cbed4a9ae6407359dfa9f"
+		},
+		{
+			"ImportPath": "golang.org/x/net/html",
+			"Rev": "7654728e381988afd88e58cabfd6363a5ea91810"
+		}
+	]
+}
