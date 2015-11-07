@@ -33,9 +33,16 @@ func init() {
 
 			parts := strings.Split(result.Info, "\"")
 
+			var text string
+			if len(parts) > 2 {
+				text = parts[1]
+			} else {
+				text = result.Info
+			}
+
 			info := PackageInfo{
 				PackageID: p,
-				Info:      parts[1],
+				Info:      text,
 			}
 
 			return &info, nil
