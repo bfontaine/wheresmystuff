@@ -19,11 +19,23 @@
 			"Rev": "912581e7171c58508b0cbed4a9ae6407359dfa9f"
 		},
 		{
+			"ImportPath": "github.com/stretchr/testify/assert",
+			"Rev": "e4ec8152c15fc46bd5056ce65997a07c7d415325"
+		},
+		{
 			"ImportPath": "golang.org/x/net/html",
 			"Rev": "7654728e381988afd88e58cabfd6363a5ea91810"
 		},
 		{
 			"ImportPath": "golang.org/x/text/encoding",
+			"Rev": "615a6c1fcabd12bbd980d47316f3d827159f8f67"
+		},
+		{
+			"ImportPath": "golang.org/x/text/internal/tag",
+			"Rev": "615a6c1fcabd12bbd980d47316f3d827159f8f67"
+		},
+		{
+			"ImportPath": "golang.org/x/text/language",
 			"Rev": "615a6c1fcabd12bbd980d47316f3d827159f8f67"
 		},
 		{
