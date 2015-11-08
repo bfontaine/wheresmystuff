@@ -10,7 +10,8 @@ import (
 
 func main() {
 	var name string
-	var c wms.Carrier
+	var info *wms.PackageInfo
+	var err error
 
 	flag.StringVar(&name, "t", "", "Carrier")
 	flag.Parse()
@@ -22,21 +23,17 @@ func main() {
 	}
 
 	if name != "" {
-		c, _ = wms.GetCarrier(name)
-		if c == nil {
+		c, ok := wms.GetCarrier(name)
+		if !ok {
 			fmt.Fprintf(os.Stderr, "The transporter '%s' doesn't exist.\n", name)
 			os.Exit(2)
 		}
+
+		info, err = c.GetPackageInfo(pkg)
 	} else {
-		c, _ = wms.GetCarrierForPackage(pkg)
-		if c == nil {
-			fmt.Fprintln(os.Stderr, "I couldn't find a transporter for this package.")
-			fmt.Fprintln(os.Stderr, "You can give its name with the -t option.")
-			os.Exit(3)
-		}
+		info, err = wms.GetPackageInfo(pkg)
 	}
 
-	info, err := c.GetPackageInfo(pkg)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error while retrieving package info: %v\n", err)
 		os.Exit(4)

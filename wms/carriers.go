@@ -63,15 +63,3 @@ func GetCarriers() (cs []Carrier) {
 
 	return
 }
-
-// GetCarrierForPackage returns the first carrier which might match the given
-// package ID. We don't support false positives for now.
-func GetCarrierForPackage(p PackageID) (Carrier, error) {
-	for _, c := range carriers {
-		if c.MatchPackage(p) {
-			return c, nil
-		}
-	}
-
-	return nil, ErrUnknownCarrier
-}

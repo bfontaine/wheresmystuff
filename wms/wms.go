@@ -1,14 +1,15 @@
 package wms
 
-import (
-	"bytes"
-	"errors"
-	"fmt"
-	"time"
-)
+import "errors"
 
-// ErrUnknownCarrier is returned when no carrier can match a given package ID
-var ErrUnknownCarrier = errors.New("Unknown transporter for this package")
+var (
+	// ErrUnknownCarrier is returned when no carrier can match a given package
+	// ID
+	ErrUnknownCarrier = errors.New("Unknown carrier for this package")
+
+	// ErrUnknownPackage is returned when a carrier doesn't know a package
+	ErrUnknownPackage = errors.New("Unknown package for this carrier")
+)
 
 // PackageID is a package ID
 type PackageID string
@@ -20,21 +21,23 @@ func (p PackageID) String() string {
 	return string(p)
 }
 
-// PackageInfo contains info describing the state of a package (WIP)
-type PackageInfo struct {
-	PackageID  PackageID
-	LastUpdate time.Time
-	Info       string
-}
+// GetPackageInfo tries to find the carrier for a given package and return the
+// package info for the given ID
+func GetPackageInfo(p PackageID) (*PackageInfo, error) {
+	for _, c := range carriers {
+		if !c.MatchPackage(p) {
+			continue
+		}
 
-func (pi PackageInfo) String() string {
-	var buf bytes.Buffer
-
-	fmt.Fprintf(&buf, "Package %s: %s\n", pi.PackageID, pi.Info)
-
-	if !pi.LastUpdate.IsZero() {
-		fmt.Fprintf(&buf, "LastUpdate: %v\n", pi.LastUpdate)
+		info, err := c.GetPackageInfo(p)
+		if err == ErrUnknownPackage {
+			continue
+		}
+		if err != nil {
+			return nil, err
+		}
+		return info, nil
 	}
 
-	return buf.String()
+	return nil, ErrUnknownCarrier
 }
