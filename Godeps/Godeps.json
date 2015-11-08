@@ -21,6 +21,14 @@
 		{
 			"ImportPath": "golang.org/x/net/html",
 			"Rev": "7654728e381988afd88e58cabfd6363a5ea91810"
+		},
+		{
+			"ImportPath": "golang.org/x/text/encoding",
+			"Rev": "615a6c1fcabd12bbd980d47316f3d827159f8f67"
+		},
+		{
+			"ImportPath": "golang.org/x/text/transform",
+			"Rev": "615a6c1fcabd12bbd980d47316f3d827159f8f67"
 		}
 	]
 }
