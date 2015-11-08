@@ -12,6 +12,7 @@ fancy documented code.
 ## Supported Carriers
 
 * Chronopost France
+* Colis Privé (France)
 
 ## Install
 

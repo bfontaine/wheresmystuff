@@ -10,6 +10,7 @@ import (
 )
 
 func init() {
+	// unfortunately it doesn't seem we can shorten this URL
 	const targetURL = "http://www.chronopost.fr/transport-express/livraison-colis/accueil/suivi?appid=9680_718&appparams=http%3A%2F%2Fwww.chronopost.fr%3A54711%2Fwebclipping%2Fservlet%2Fwebclip%3Fjahia_url_web_clipping%3Dhttp%3A%2F%2Flocalhost%3A54702%2Fexpedier%2FinputLTNumbers.do"
 
 	// http://www.chronopost.fr/transport-express/webdav/site/chronov4/users/chronopost/public/pdf/track.pdf
