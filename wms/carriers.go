@@ -1,9 +1,6 @@
 package wms
 
-import (
-	"errors"
-	"strings"
-)
+import "errors"
 
 // A Carrier is some entity which knows where a package is. It has a
 // human-readable name and two methods: one to check if it might be responsible
@@ -17,31 +14,32 @@ type Carrier interface {
 
 // GenericCarrier is a convenient way to declare a new carrier.
 type GenericCarrier struct {
-	name           string
-	matchPackage   func(p PackageID) bool
-	getPackageInfo func(p PackageID) (*PackageInfo, error)
+	Name      string
+	ShortName string
+	Match     func(p PackageID) bool
+	GetInfo   func(p PackageID) (*PackageInfo, error)
 }
 
 // GetName implements the Carrier interface.
-func (c GenericCarrier) GetName() string { return c.name }
-func (c GenericCarrier) GetShortName() string {
-	return strings.ToLower(strings.Replace(c.name, " ", "", -1))
-}
+func (c GenericCarrier) GetName() string { return c.Name }
+
+// GetShortName implements the Carrier interface.
+func (c GenericCarrier) GetShortName() string { return c.ShortName }
 
 // MatchPackage implements the Carrier interface.
 func (c GenericCarrier) MatchPackage(p PackageID) bool {
-	if c.matchPackage == nil {
+	if c.Match == nil {
 		return false
 	}
-	return c.matchPackage(p)
+	return c.Match(p)
 }
 
 // GetPackageInfo implements the Carrier interface.
 func (c GenericCarrier) GetPackageInfo(p PackageID) (*PackageInfo, error) {
-	if c.getPackageInfo == nil {
-		return nil, errors.New("undefined method: getPackageInfo")
+	if c.GetInfo == nil {
+		return nil, errors.New("undefined func attribute: GetInfo")
 	}
-	return c.getPackageInfo(p)
+	return c.GetInfo(p)
 }
 
 var _ Carrier = GenericCarrier{}

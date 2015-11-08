@@ -15,11 +15,12 @@ func init() {
 	var pattern = regexp.MustCompile(`^5\d{2}000\d{11}$`)
 
 	RegisterCarrier(GenericCarrier{
-		name: "Colis Prive",
-		matchPackage: func(p PackageID) bool {
+		Name:      "Colis Privé",
+		ShortName: "colisprive",
+		Match: func(p PackageID) bool {
 			return pattern.MatchString(p.String())
 		},
-		getPackageInfo: func(p PackageID) (*PackageInfo, error) {
+		GetInfo: func(p PackageID) (*PackageInfo, error) {
 			var info struct {
 				Info string `gostruct:".BandeauInfoColis .divStatut .tdText"`
 			}

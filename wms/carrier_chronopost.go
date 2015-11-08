@@ -17,11 +17,12 @@ func init() {
 	var pattern = regexp.MustCompile(`^(?:[a-z]{2}\d{9}[a-z]{2}|\d{15}|\d{14}[a-z])$`)
 
 	RegisterCarrier(GenericCarrier{
-		name: "Chronopost",
-		matchPackage: func(p PackageID) bool {
+		Name:      "Chronopost",
+		ShortName: "chronopost",
+		Match: func(p PackageID) bool {
 			return pattern.MatchString(p.String())
 		},
-		getPackageInfo: func(p PackageID) (*PackageInfo, error) {
+		GetInfo: func(p PackageID) (*PackageInfo, error) {
 			resp, err := http.PostForm(targetURL, url.Values{"chronoNumbers": {p.String()}})
 			if err != nil {
 				return nil, err
