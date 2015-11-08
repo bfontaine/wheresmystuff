@@ -7,7 +7,11 @@ I ordered at Amazon the day before.
 [![Build Status](https://travis-ci.org/bfontaine/wheresmystuff.svg?branch=master)](https://travis-ci.org/bfontaine/wheresmystuff)
 
 Right now the most important thing is to know where my stuff is so don’t expect
-fancy documented code.
+fancy code.
+
+## Usage
+
+    $ ./whereismystuff <package ID>
 
 ## Supported Carriers
 
