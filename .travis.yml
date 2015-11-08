@@ -9,3 +9,4 @@ script:
   - go test ./...
 notifications:
   email: false
+sudo: false
