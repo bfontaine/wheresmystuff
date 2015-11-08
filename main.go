@@ -9,12 +9,23 @@ import (
 )
 
 func main() {
-	var name string
+	var flagName string
+	var flagList bool
+
 	var info *wms.PackageInfo
 	var err error
 
-	flag.StringVar(&name, "t", "", "Carrier")
+	flag.StringVar(&flagName, "c", "", "Force to use a carrier")
+	flag.BoolVar(&flagList, "list", false, "List the available carriers")
 	flag.Parse()
+
+	if flagList {
+		fmt.Println("Available carriers:")
+		for _, c := range wms.GetCarriers() {
+			fmt.Printf("- %s\n", c.GetShortName())
+		}
+		return
+	}
 
 	pkg := wms.PackageID(flag.Arg(0))
 	if pkg == "" {
@@ -22,10 +33,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	if name != "" {
-		c, ok := wms.GetCarrier(name)
+	if flagName != "" {
+		c, ok := wms.GetCarrier(flagName)
 		if !ok {
-			fmt.Fprintf(os.Stderr, "The transporter '%s' doesn't exist.\n", name)
+			fmt.Fprintf(os.Stderr, "The carrier '%s' doesn't exist.\n", flagName)
 			os.Exit(2)
 		}
 

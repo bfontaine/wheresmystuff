@@ -1,12 +1,16 @@
 package wms
 
-import "errors"
+import (
+	"errors"
+	"strings"
+)
 
 // A Carrier is some entity which knows where a package is. It has a
 // human-readable name and two methods: one to check if it might be responsible
 // for a given package ID; another to actually get the info for this package.
 type Carrier interface {
 	GetName() string
+	GetShortName() string
 	MatchPackage(p PackageID) bool
 	GetPackageInfo(p PackageID) (*PackageInfo, error)
 }
@@ -20,6 +24,9 @@ type GenericCarrier struct {
 
 // GetName implements the Carrier interface.
 func (c GenericCarrier) GetName() string { return c.name }
+func (c GenericCarrier) GetShortName() string {
+	return strings.ToLower(strings.Replace(c.name, " ", "", -1))
+}
 
 // MatchPackage implements the Carrier interface.
 func (c GenericCarrier) MatchPackage(p PackageID) bool {
@@ -43,7 +50,7 @@ var carriers = make(map[string]Carrier)
 
 // RegisterCarrier registers a carrier in the global register
 func RegisterCarrier(c Carrier) {
-	carriers[c.GetName()] = c
+	carriers[c.GetShortName()] = c
 }
 
 // GetCarrier gets a carrier by name from the global register
